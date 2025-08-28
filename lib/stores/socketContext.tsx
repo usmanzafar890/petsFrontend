@@ -29,8 +29,8 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (!user || !token) return;
 
-    const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-    
+    const SOCKET_URL =process.env.NEXT_PUBLIC_API_URL_SOCKET || "http://localhost:5000";
+
     const socketInstance = io(SOCKET_URL, {
       auth: { token },
       reconnection: true,
