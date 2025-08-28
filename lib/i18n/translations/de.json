@@ -1,0 +1,125 @@
+{
+  "common": {
+    "appName": "PetCare",
+    "tagline": "Komplette Pflege für Ihre pelzigen Freunde",
+    "language": "Sprache",
+    "english": "Englisch",
+    "german": "Deutsch",
+    "french": "Französisch",
+    "error": "Fehler"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "dashboard": "Dashboard",
+    "pets": "Meine Haustiere",
+    "health": "Gesundheit",
+    "schedule": "Zeitplan",
+    "emergency": "Notfall",
+    "analytics": "Analysen",
+    "messages": "Nachrichten",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "login": "Anmelden",
+    "signup": "Registrieren"
+  },
+  "features": {
+    "title": "LEISTUNGSSTARKE FUNKTIONEN",
+    "heading": "Eine Funktion für jeden Haustierbedarf",
+    "description": "Unsere Plattform ist vollgepackt mit leistungsstarken Funktionen, die Ihnen helfen, die bestmögliche Pflege für Ihre Haustiere zu bieten. Von Gesundheitsakten bis hin zu Erinnerungen, wir haben alles für Sie.",
+    "petProfile": {
+      "title": "Komplettes Haustier-Profil",
+      "description": "Ein einziger Ort für alle wichtigen Informationen über Ihr Haustier, von der Krankengeschichte bis zu Ernährungsbedürfnissen.",
+      "benefits": {
+        "records": "Medizinische Aufzeichnungen",
+        "diet": "Ernährungsverfolgung",
+        "breed": "Rasseninformationen",
+        "growth": "Wachstumsdiagramme"
+      }
+    },
+    "careReminders": {
+      "title": "Pflegeerinnerungen",
+      "description": "Richten Sie Erinnerungen für alles ein: Tierarzttermine, Medikamente, Impfungen und mehr.",
+      "benefits": {
+        "appointments": "Verpassen Sie keine Termine",
+        "medication": "Medikamentenplan",
+        "grooming": "Pflegeerinnerungen",
+        "alerts": "Benutzerdefinierte Warnungen"
+      }
+    },
+    "medicalHistory": {
+      "title": "Krankengeschichte",
+      "description": "Führen Sie ein detailliertes Protokoll über jedes medizinische Ereignis, einschließlich Entwurmung, Reinigungen und Operationen.",
+      "benefits": {
+        "vaccination": "Impfaufzeichnungen",
+        "treatment": "Behandlungshistorie",
+        "medication": "Medikamentenprotokolle",
+        "health": "Gesundheitstrends"
+      }
+    },
+    "symptomTracking": {
+      "title": "Symptomverfolgung",
+      "description": "Überwachen Sie die Gesundheit Ihres Haustiers, indem Sie Symptome protokollieren und die Daten mit Ihrem Tierarzt teilen.",
+      "benefits": {
+        "detection": "Früherkennung",
+        "patterns": "Gesundheitsmuster",
+        "communication": "Tierarztkommunikation",
+        "monitoring": "Wellness-Überwachung"
+      }
+    }
+  },
+  "hero": {
+    "badge": "#1 Haustierbetreuungsplattform",
+    "title": "Die aufmerksamste",
+    "subtitle": "Haustierbetreuungsplattform",
+    "description": "Wir wissen, wie sehr Sie und Ihre Haustiere sich umeinander kümmern. Wir haben es uns zur Aufgabe gemacht, diese Beziehung mit über 50 exklusiven Funktionen für alle Bedürfnisse Ihrer Haustiere auf ein ganz neues Niveau zu heben.",
+    "healthTracking": "Gesundheitsüberwachung",
+    "smartReminders": "Intelligente Erinnerungen",
+    "vetRecords": "Tierarztunterlagen",
+    "getStarted": "Kostenlos starten",
+    "learnMore": "Mehr erfahren",
+    "noCredit": "Keine Kreditkarte erforderlich. Jederzeit kündbar.",
+    "trustedBy": "Vertraut von",
+    "petOwners": "Haustierbesitzern"
+  },
+  "dashboard": {
+    "welcome": "Willkommen zurück",
+    "upcomingAppointments": "Bevorstehende Termine",
+    "recentActivity": "Neueste Aktivitäten",
+    "petHealth": "Haustiergesundheit",
+    "statistics": "Statistiken",
+    "viewAll": "Alle anzeigen"
+  },
+  "messages": {
+    "title": "Nachrichten",
+    "noMessages": "Keine Nachrichten gefunden",
+    "searchMessages": "Nachrichten durchsuchen...",
+    "newMessage": "Neue Nachricht",
+    "all": "Alle",
+    "direct": "Direkt",
+    "groups": "Gruppen",
+    "noDirectMessages": "Keine direkten Nachrichten",
+    "noCommunityChats": "Keine Gruppenchats",
+    "selectConversation": "Wähle eine Konversation",
+    "selectConversationDesc": "Wähle eine Konversation aus der Seitenleiste oder starte eine neue, um mit dem Messaging zu beginnen",
+    "typeMessage": "Nachricht eingeben...",
+    "send": "Senden",
+    "offline": "Offline",
+    "members": "Mitglieder",
+    "loadOlder": "Ältere Nachrichten laden",
+    "directMessage": "Direktnachricht",
+    "createCommunity": "Gemeinschaft erstellen",
+    "searchUsers": "Benutzer suchen...",
+    "noUsersFound": "Keine Benutzer gefunden",
+    "communityName": "Gemeinschaftsname",
+    "communityNamePlaceholder": "Gemeinschaftsname eingeben",
+    "description": "Beschreibung",
+    "descriptionPlaceholder": "Gemeinschaftsbeschreibung eingeben",
+    "optional": "optional",
+    "creating": "Erstelle...",
+    "beginningConversation": "Dies ist der Beginn Ihrer Konversation mit {name}.",
+    "sendError": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+    "timeoutError": "Zeitüberschreitung beim Senden der Nachricht. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+    "unknownUser": "Unbekannter Benutzer",
+    "unnamedChat": "Unbenannter Chat"
+  }
+}

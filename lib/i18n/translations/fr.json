@@ -1,0 +1,128 @@
+{
+  "common": {
+    "appName": "PetCare",
+    "tagline": "Soins complets pour vos amis à fourrure",
+    "language": "Langue",
+    "english": "Anglais",
+    "german": "Allemand",
+    "french": "Français",
+    "error": "Erreur"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "pets": "Mes animaux",
+    "health": "Santé",
+    "schedule": "Calendrier",
+    "emergency": "Urgence",
+    "analytics": "Analyses",
+    "messages": "Messages",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "signup": "S'inscrire"
+  },
+  "features": {
+    "title": "FONCTIONNALITÉS PUISSANTES",
+    "heading": "Une fonctionnalité pour chaque besoin animalier",
+    "description": "Notre plateforme regorge de fonctionnalités puissantes pour vous aider à fournir les meilleurs soins possibles à vos animaux. Des dossiers de santé aux rappels, nous avons tout prévu pour vous.",
+    "petProfile": {
+      "title": "Profil complet de l'animal",
+      "description": "Un seul endroit pour toutes les informations importantes sur votre animal, de l'historique médical aux besoins alimentaires.",
+      "benefits": {
+        "records": "Dossiers médicaux",
+        "diet": "Suivi alimentaire",
+        "breed": "Informations sur la race",
+        "growth": "Courbes de croissance"
+      }
+    },
+    "careReminders": {
+      "title": "Rappels de soins",
+      "description": "Configurez des rappels pour tout : rendez-vous vétérinaires, médicaments, vaccinations, et plus encore.",
+      "benefits": {
+        "appointments": "Ne manquez jamais de rendez-vous",
+        "medication": "Calendrier des médicaments",
+        "grooming": "Rappels de toilettage",
+        "alerts": "Alertes personnalisées"
+      }
+    },
+    "medicalHistory": {
+      "title": "Historique médical",
+      "description": "Gardez un journal détaillé de chaque événement médical, y compris le déparasitage, les nettoyages et les chirurgies.",
+      "benefits": {
+        "vaccination": "Registres de vaccination",
+        "treatment": "Historique des traitements",
+        "medication": "Journaux des médicaments",
+        "health": "Tendances de santé"
+      }
+    },
+    "symptomTracking": {
+      "title": "Suivi des symptômes",
+      "description": "Surveillez la santé de votre animal en enregistrant les symptômes et en partageant les données avec votre vétérinaire.",
+      "benefits": {
+        "detection": "Détection précoce",
+        "patterns": "Modèles de santé",
+        "communication": "Communication avec le vétérinaire",
+        "monitoring": "Surveillance du bien-être"
+      }
+    }
+  },
+  "hero": {
+    "badge": "#1 Plateforme de soins pour animaux",
+    "title": "La plateforme de soins",
+    "subtitle": "la plus attentionnée",
+    "description": "Nous savons à quel point vous et vos animaux vous souciez les uns des autres. Notre mission est d'élever cette relation à un tout autre niveau avec plus de 50 fonctionnalités exclusives pour tous les besoins de vos animaux.",
+    "healthTracking": "Suivi de santé",
+    "smartReminders": "Rappels intelligents",
+    "vetRecords": "Dossiers vétérinaires",
+    "getStarted": "Commencer gratuitement",
+    "learnMore": "En savoir plus",
+    "noCredit": "Aucune carte de crédit requise. Annulez à tout moment.",
+    "trustedBy": "Approuvé par",
+    "petOwners": "propriétaires d'animaux"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue",
+    "upcomingAppointments": "Rendez-vous à venir",
+    "recentActivity": "Activité récente",
+    "petHealth": "Santé de l'animal",
+    "statistics": "Statistiques",
+    "viewAll": "Voir tout"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "Aucun message trouvé",
+    "searchMessages": "Rechercher des messages...",
+    "newMessage": "Nouveau message",
+    "all": "Tous",
+    "direct": "Direct",
+    "groups": "Groupes",
+    "noDirectMessages": "Aucun message direct",
+    "noCommunityChats": "Aucun chat communautaire",
+    "selectConversation": "Sélectionnez une conversation",
+    "selectConversationDesc": "Choisissez une conversation dans la barre latérale ou commencez-en une nouvelle pour débuter la messagerie",
+    "startConversation": "Démarrer une conversation",
+    "joinDiscussion": "Rejoindre la discussion",
+    "typeMessage": "Tapez un message...",
+    "send": "Envoyer",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "members": "membres",
+    "loadOlder": "Charger les messages plus anciens",
+    "directMessage": "Message direct",
+    "createCommunity": "Créer une communauté",
+    "searchUsers": "Rechercher des utilisateurs...",
+    "noUsersFound": "Aucun utilisateur trouvé",
+    "communityName": "Nom de la communauté",
+    "communityNamePlaceholder": "Entrez le nom de la communauté",
+    "description": "Description",
+    "descriptionPlaceholder": "Entrez la description de la communauté",
+    "optional": "optionnel",
+    "creating": "Création en cours...",
+    "beginningConversation": "Ceci est le début de votre conversation avec {name}.",
+    "sendError": "Échec de l'envoi du message. Veuillez réessayer.",
+    "timeoutError": "Délai d'attente dépassé lors de l'envoi du message. Veuillez vérifier votre connexion et réessayer.",
+    "unknownUser": "Utilisateur inconnu",
+    "unnamedChat": "Chat sans nom"
+  }
+}

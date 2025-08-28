@@ -1,0 +1,128 @@
+{
+  "common": {
+    "appName": "PetCare",
+    "tagline": "Complete care for your furry friends",
+    "language": "Language",
+    "english": "English",
+    "german": "German",
+    "french": "French",
+    "error": "Error"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "pets": "My Pets",
+    "health": "Health",
+    "schedule": "Schedule",
+    "emergency": "Emergency",
+    "analytics": "Analytics",
+    "messages": "Messages",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "features": {
+    "title": "POWERFUL FEATURES",
+    "heading": "A Feature for Every Pet Need",
+    "description": "Our platform is packed with powerful features to help you provide the best possible care for your pets. From health records to reminders, we've got you covered.",
+    "petProfile": {
+      "title": "Complete Pet Profile",
+      "description": "A single place for all the important information about your pet, from medical history to dietary needs.",
+      "benefits": {
+        "records": "Medical records",
+        "diet": "Diet tracking",
+        "breed": "Breed information",
+        "growth": "Growth charts"
+      }
+    },
+    "careReminders": {
+      "title": "Care Reminders",
+      "description": "Set up reminders for everything: vet appointments, medications, vaccinations, and more.",
+      "benefits": {
+        "appointments": "Never miss appointments",
+        "medication": "Medication schedules",
+        "grooming": "Grooming reminders",
+        "alerts": "Custom alerts"
+      }
+    },
+    "medicalHistory": {
+      "title": "Medical History",
+      "description": "Keep a detailed log of every medical event, including deworming, cleanings, and surgeries.",
+      "benefits": {
+        "vaccination": "Vaccination records",
+        "treatment": "Treatment history",
+        "medication": "Medication logs",
+        "health": "Health trends"
+      }
+    },
+    "symptomTracking": {
+      "title": "Symptom Tracking",
+      "description": "Monitor your pet's health by logging symptoms and sharing the data with your veterinarian.",
+      "benefits": {
+        "detection": "Early detection",
+        "patterns": "Health patterns",
+        "communication": "Vet communication",
+        "monitoring": "Wellness monitoring"
+      }
+    }
+  },
+  "hero": {
+    "badge": "#1 Pet Care Platform",
+    "title": "The Most Attentive",
+    "subtitle": "Pet-Care Platform",
+    "description": "We know how much you and your pets care for each other. We are on a mission to take that relationship to a whole new level with 50+ exclusive features for your pets' every need.",
+    "healthTracking": "Health Tracking",
+    "smartReminders": "Smart Reminders",
+    "vetRecords": "Vet Records",
+    "getStarted": "Get Started for Free",
+    "learnMore": "Learn More",
+    "noCredit": "No credit card required. Cancel anytime.",
+    "trustedBy": "Trusted by",
+    "petOwners": "Pet owners"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "upcomingAppointments": "Upcoming Appointments",
+    "recentActivity": "Recent Activity",
+    "petHealth": "Pet Health",
+    "statistics": "Statistics",
+    "viewAll": "View All"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "No messages found",
+    "searchMessages": "Search messages...",
+    "newMessage": "New Message",
+    "all": "All",
+    "direct": "Direct",
+    "groups": "Groups",
+    "noDirectMessages": "No direct messages",
+    "noCommunityChats": "No community chats",
+    "selectConversation": "Select a conversation",
+    "selectConversationDesc": "Choose a conversation from the sidebar or start a new one to begin messaging",
+    "startConversation": "Start a conversation",
+    "joinDiscussion": "Join the discussion",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "online": "Online",
+    "offline": "Offline",
+    "members": "members",
+    "loadOlder": "Load older messages",
+    "directMessage": "Direct Message",
+    "createCommunity": "Create Community",
+    "searchUsers": "Search users...",
+    "noUsersFound": "No users found",
+    "communityName": "Community Name",
+    "communityNamePlaceholder": "Enter community name",
+    "description": "Description",
+    "descriptionPlaceholder": "Enter community description",
+    "optional": "optional",
+    "creating": "Creating...",
+    "beginningConversation": "This is the beginning of your conversation with {name}.",
+    "sendError": "Failed to send message. Please try again.",
+    "timeoutError": "Message sending timed out. Please check your connection and try again.",
+    "unknownUser": "Unknown User",
+    "unnamedChat": "Unnamed Chat"
+  }
+}
