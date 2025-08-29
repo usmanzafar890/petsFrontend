@@ -116,10 +116,24 @@ export interface UserLocation {
   accuracy?: number
 }
 
+export interface FamilyMember {
+  _id: string;
+  user?: string;
+  name: string;
+  email: string;
+  status: 'pending' | 'active';
+  invitedAt?: string;
+}
+
 export interface User {
   _id: string;
   name: string;
   email: string;
+  role?: 'admin' | 'member';
+  familyAdmin?: string;
+  familyMembers?: FamilyMember[];
+  membershipPlan?: 'basic' | 'premium' | 'professional';
+  maxFamilyMembers?: number;
 }
 
 export interface SignUpData {

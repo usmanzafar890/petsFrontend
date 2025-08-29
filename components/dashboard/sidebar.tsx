@@ -23,6 +23,7 @@ import {
   Bird,
   Fish,
   MessageSquare,
+  UserCog,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "@/lib/stores/auth";
@@ -101,6 +102,13 @@ export function Sidebar({ isOnline }: SidebarProps) {
       icon: BarChart,
       petIcon: PawPrint,
       color: "purple",
+    },
+    {
+      href: "/dashboard/profile",
+      label: t("navigation.profile") || "Profile",
+      icon: UserCog,
+      petIcon: Dog,
+      color: "pink",
     },
   ];
 
