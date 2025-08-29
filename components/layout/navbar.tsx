@@ -37,6 +37,12 @@ export function Navbar() {
               {t('navigation.about') || 'About'}
             </Link>
             <Link 
+              href="/pricing" 
+              className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200"
+            >
+              {t('navigation.pricing') || 'Pricing'}
+            </Link>
+            <Link 
               href="/contact" 
               className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200"
             >
@@ -76,6 +82,13 @@ export function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               {t('navigation.about') || 'About'}
+            </Link>
+            <Link 
+              href="/pricing" 
+              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-500 hover:bg-gray-50 rounded-md"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t('navigation.pricing') || 'Pricing'}
             </Link>
             <Link 
               href="/contact" 
