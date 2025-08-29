@@ -19,6 +19,7 @@ import {
   Crown,
   ArrowUpCircle,
 } from "lucide-react";
+import { ProfileInvitations } from "@/components/dashboard/profile-invitations";
 import {
   getFamilyMembers,
   inviteFamilyMember,
@@ -281,6 +282,8 @@ export default function ProfilePage() {
             initial="hidden"
             animate="visible"
           >
+            {/* Invitation acceptance UI */}
+            <ProfileInvitations />
             <motion.div variants={itemVariants}>
               <Card className="mb-8 border-amber-200 shadow-sm">
                 <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">
@@ -484,7 +487,7 @@ export default function ProfilePage() {
                     </TableHeader>
                     <TableBody>
                       {/* Current user (admin) */}
-                      <TableRow>
+                      <TableRow key="current-user">
                         <TableCell className="font-medium">
                           {user?.name}
                         </TableCell>

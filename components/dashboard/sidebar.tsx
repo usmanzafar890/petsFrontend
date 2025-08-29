@@ -25,6 +25,7 @@ import {
   MessageSquare,
   UserCog,
 } from "lucide-react";
+import { InvitationNotification } from "@/components/dashboard/invitation-notification";
 import { motion } from "framer-motion";
 import { useAuthStore } from "@/lib/stores/auth";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
@@ -149,23 +150,28 @@ export function Sidebar({ isOnline }: SidebarProps) {
             transition={{ duration: 0.5 }}
             className="p-5 border-b border-amber-200"
           >
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-amber-400 to-orange-300 opacity-50 blur-md"></div>
-                <div className="relative w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-400 rounded-full flex items-center justify-center shadow-md">
-                  <PawPrint className="w-7 h-7 text-white" />
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-amber-400 to-orange-300 opacity-50 blur-md"></div>
+                  <div className="relative w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-400 rounded-full flex items-center justify-center shadow-md">
+                    <PawPrint className="w-7 h-7 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
+                    PetCare
+                  </h1>
+                  <div className="flex items-center gap-1.5">
+                    <Dog className="w-3.5 h-3.5 text-amber-500" />
+                    <p className="text-sm text-amber-700">
+                      Hi, {user?.name || "Pet Parent"}!
+                    </p>
+                  </div>
                 </div>
               </div>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
-                  PetCare
-                </h1>
-                <div className="flex items-center gap-1.5">
-                  <Dog className="w-3.5 h-3.5 text-amber-500" />
-                  <p className="text-sm text-amber-700">
-                    Hi, {user?.name || "Pet Parent"}!
-                  </p>
-                </div>
+                <InvitationNotification />
               </div>
             </div>
           </motion.div>

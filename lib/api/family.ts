@@ -167,3 +167,29 @@ export const acceptFamilyInvitation = async (adminId: string) => {
   
   return response.json();
 };
+
+/**
+ * Decline a family invitation
+ */
+export const declineFamilyInvitation = async (adminId: string) => {
+  const token = getToken();
+  
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+  
+  const response = await fetch(`${API_URL}/family/decline/${adminId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to decline invitation');
+  }
+  
+  return response.json();
+};
