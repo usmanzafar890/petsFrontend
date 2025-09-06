@@ -1,8 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import { Socket } from "socket.io-client";
 import { useAuthStore } from "./auth";
+import { createReliableSocketConnection } from "../socket/socketFallback";
 
 interface SocketContextType {
   socket: Socket | null;
@@ -52,27 +53,28 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
     const SOCKET_URL = getSocketUrl();
     console.log('Connecting to socket at:', SOCKET_URL);
 
-    const socketInstance = io(SOCKET_URL, {
+    // Create socket instance with Vercel-compatible configuration using our fallback mechanism
+    const socketOptions = {
       auth: { token },
+      // Reconnection settings
       reconnection: true,
-      reconnectionAttempts: 5,
+      reconnectionAttempts: Infinity,
       reconnectionDelay: 1000,
-      // Use same transport options as server
-      transports: ['websocket', 'polling'],
-      // Automatically try to reconnect if connection is lost
-      reconnectionDelayMax: 10000,
-      // Timeout for connection attempt
+      reconnectionDelayMax: 5000,
+      // Timeout settings
       timeout: 20000,
-      // Force new connection (don't reuse old one)
+      // Connection settings
       forceNew: true,
       // Ensure secure connection in production
       secure: typeof window !== 'undefined' && window.location.protocol === 'https:',
-      // Reopen closed connection
-      autoConnect: true,
-      // Path for Socket.IO endpoint if you're using a proxy
+      // Path for Socket.IO endpoint
       path: process.env.NEXT_PUBLIC_SOCKET_PATH || '/socket.io',
-    });
+    };
+    
+    // Use our reliable socket connection with fallback mechanism
+    const socketInstance = createReliableSocketConnection(SOCKET_URL, socketOptions);
 
+    // Set up event handlers
     socketInstance.on("connect", () => {
       console.log("Socket connected");
       setIsConnected(true);
@@ -83,20 +85,20 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsConnected(false);
     });
 
-    socketInstance.on("user_status_change", ({ userId, isOnline }) => {
+    socketInstance.on("user_status_change", (data: { userId: string, isOnline: boolean }) => {
       setOnlineUsers((prev) => {
         const updated = new Set(prev);
-        if (isOnline) {
-          updated.add(userId);
+        if (data.isOnline) {
+          updated.add(data.userId);
         } else {
-          updated.delete(userId);
+          updated.delete(data.userId);
         }
         return updated;
       });
     });
 
-    socketInstance.on("error", (error) => {
-      console.error("Socket error:", error);
+    socketInstance.on("error", (errorData: any) => {
+      console.error("Socket error:", errorData);
     });
 
     setSocket(socketInstance);
