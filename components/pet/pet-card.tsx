@@ -3,7 +3,8 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Edit, Trash2, Heart, Dog, Cat, Rabbit, Bird, Fish, PawPrint } from "lucide-react"
+import { Edit, Trash2, Heart, Dog, Cat, Rabbit, Bird, Fish, PawPrint, Cake } from "lucide-react"
+import { format } from "date-fns"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import type { Pet } from "@/lib/types"
@@ -87,7 +88,22 @@ export function PetCard({ pet, onEdit, onDelete }: PetCardProps) {
                 <div className="w-2 h-2 rounded-full bg-orange-300"></div>
                 <span className="text-sm text-gray-600">Age:</span>
               </div>
-              <span className="text-sm font-medium text-gray-900 text-right">{pet.age} years</span>
+              <span className="text-sm font-medium text-gray-900 text-right">
+                {typeof pet.age === 'string' ? pet.age : `${pet.age} years`}
+              </span>
+              
+              {pet.dateOfBirth && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-orange-300"></div>
+                    <span className="text-sm text-gray-600">Birthday:</span>
+                  </div>
+                  <span className="text-sm font-medium text-gray-900 text-right flex items-center justify-end gap-1">
+                    <Cake className="w-3.5 h-3.5 text-orange-500" />
+                    {format(new Date(pet.dateOfBirth), 'MMM d, yyyy')}
+                  </span>
+                </>              
+              )}
               
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-orange-300"></div>

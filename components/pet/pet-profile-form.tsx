@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -10,7 +10,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Dog, Cat, Rabbit, Bird, Fish, PawPrint, X, Plus, Heart, User, Calendar, Scale, Flag, MapPin, Tag, Info, Thermometer, Stethoscope, Clipboard, Dna, Pencil } from "lucide-react";
+import { Dog, Cat, Rabbit, Bird, Fish, PawPrint, X, Plus, Heart, User, Calendar, Scale, Flag, MapPin, Tag, Info, Thermometer, Stethoscope, Clipboard, Dna, Pencil, Cake } from "lucide-react";
+import { format } from "date-fns";
 import type { Pet } from "@/lib/types"
 import { usePetStore } from "@/lib/stores/pets"
 import { motion } from "framer-motion"
@@ -36,7 +37,8 @@ export function PetProfileForm({ pet, onSuccess, onCancel }: PetProfileFormProps
     sizeOfPet: pet?.sizeOfPet || "",
     name: pet?.name || "",
     breed: pet?.breed || "",
-    age: pet?.age || 0,
+    dateOfBirth: pet?.dateOfBirth || "",
+    age: pet?.age || "", // Changed from number to string
     gender: pet?.gender || ("male" as const),
     microchipId: pet?.microchipId || "",
     weight: pet?.weight || 0,
@@ -63,10 +65,68 @@ export function PetProfileForm({ pet, onSuccess, onCancel }: PetProfileFormProps
     }
   };
 
+  // Calculate age from date of birth as a formatted string (years, months, days)
+  const calculateAge = (dateOfBirth: string): string => {
+    if (!dateOfBirth) return "";
+    
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    
+    // Calculate difference in milliseconds
+    const diffMs = today.getTime() - birthDate.getTime();
+    
+    // Convert to days (1000ms * 60s * 60min * 24h)
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    // Calculate years, months, and remaining days
+    const years = Math.floor(diffDays / 365);
+    const remainingDaysAfterYears = diffDays % 365;
+    const months = Math.floor(remainingDaysAfterYears / 30);
+    const days = remainingDaysAfterYears % 30;
+    
+    // Format the age string
+    let ageString = "";
+    
+    if (years > 0) {
+      ageString += `${years} ${years === 1 ? "year" : "years"}`;
+    }
+    
+    if (months > 0) {
+      ageString += ageString ? ", " : "";
+      ageString += `${months} ${months === 1 ? "month" : "months"}`;
+    }
+    
+    if (days > 0 || (years === 0 && months === 0)) {
+      ageString += ageString ? ", " : "";
+      ageString += `${days} ${days === 1 ? "day" : "days"}`;
+    }
+    
+    return ageString;
+  };
+
+  // Update age when date of birth changes
+  useEffect(() => {
+    if (formData.dateOfBirth) {
+      const calculatedAge = calculateAge(formData.dateOfBirth);
+      setFormData(prev => ({ ...prev, age: calculatedAge }));
+    }
+  }, [formData.dateOfBirth]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const parsedValue = e.target.type === 'number' ? (name === 'age' ? parseInt(value) : parseFloat(value)) || 0 : value;
-    setFormData(prev => ({ ...prev, [name]: parsedValue }));
+    
+    // Special handling for date of birth
+    if (name === 'dateOfBirth') {
+      setFormData(prev => ({ ...prev, [name]: value }));
+      // Age will be updated by the useEffect
+    } else if (name === 'age') {
+      // For age, just store the string value directly
+      setFormData(prev => ({ ...prev, [name]: value }));
+    } else {
+      // For other numeric fields
+      const parsedValue = e.target.type === 'number' ? parseFloat(value) || 0 : value;
+      setFormData(prev => ({ ...prev, [name]: parsedValue }));
+    }
   };
 
   const handleSelectChange = (name: string, value: string) => {
@@ -218,23 +278,44 @@ export function PetProfileForm({ pet, onSuccess, onCancel }: PetProfileFormProps
             
             <div className="grid gap-6 md:grid-cols-3">
               <div className="space-y-2">
+                <Label htmlFor="dateOfBirth" className="text-amber-700 flex items-center gap-1.5">
+                  <Cake className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Date of Birth</span>
+                </Label>
+                <div className="relative">
+                  <Input 
+                    id="dateOfBirth" 
+                    name="dateOfBirth" 
+                    type="date" 
+                    value={formData.dateOfBirth} 
+                    onChange={handleInputChange} 
+                    className="pl-9 border-amber-200 focus:border-amber-400 focus:ring-amber-400"
+                  />
+                  <Cake className="absolute left-3 top-2.5 w-4 h-4 text-amber-400" />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
                 <Label htmlFor="age" className="text-amber-700 flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Age (years)</span>
+                  <span>Age</span>
                 </Label>
                 <div className="relative">
                   <Input 
                     id="age" 
                     name="age" 
-                    type="number" 
-                    min="0" 
-                    max="30" 
+                    type="text" 
                     value={formData.age} 
                     onChange={handleInputChange} 
                     required 
-                    className="pl-9 border-amber-200 focus:border-amber-400 focus:ring-amber-400"
+                    readOnly={!!formData.dateOfBirth}
+                    placeholder="e.g., 2 years, 3 months"
+                    className={`pl-9 border-amber-200 focus:border-amber-400 focus:ring-amber-400 ${formData.dateOfBirth ? 'bg-amber-50' : ''}`}
                   />
-                  <span className="absolute left-3 top-2.5 text-amber-500 text-sm font-medium">Y</span>
+                  <Calendar className="absolute left-3 top-2.5 w-4 h-4 text-amber-400" />
+                  {formData.dateOfBirth && (
+                    <span className="absolute right-3 top-2.5 text-xs text-amber-500">(Auto)</span>
+                  )}
                 </div>
               </div>
               

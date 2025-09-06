@@ -20,6 +20,8 @@ import {
   ArrowUpCircle,
 } from "lucide-react";
 import { ProfileInvitations } from "@/components/dashboard/profile-invitations";
+import { PasswordChangeForm } from "@/components/profile/password-change-form";
+import { LoginHistory } from "@/components/profile/login-history";
 import {
   getFamilyMembers,
   inviteFamilyMember,
@@ -400,49 +402,18 @@ export default function ProfilePage() {
               </Card>
             </motion.div>
 
-            <motion.div variants={itemVariants}>
-              <Card className="border-amber-200 shadow-sm">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-amber-800">
-                        Security Settings
-                      </CardTitle>
-                      <CardDescription>
-                        Manage your account security
-                      </CardDescription>
-                    </div>
-                    <div className="relative">
-                      <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-amber-400 to-orange-300 opacity-50 blur-md"></div>
-                      <div className="relative w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-400 rounded-full flex items-center justify-center shadow-md">
-                        <Shield className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="space-y-4">
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start border-amber-200 text-amber-700 hover:bg-amber-50"
-                    >
-                      Change Password
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start border-amber-200 text-amber-700 hover:bg-amber-50"
-                    >
-                      Two-Factor Authentication
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start border-amber-200 text-amber-700 hover:bg-amber-50"
-                    >
-                      Login History
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+            <motion.div variants={itemVariants} className="space-y-6">
+              <div>
+                <h2 className="text-xl font-semibold text-amber-800 mb-4 flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-amber-600" />
+                  Security Settings
+                </h2>
+                <PasswordChangeForm />
+              </div>
+
+              <div className="mt-6">
+                <LoginHistory />
+              </div>
             </motion.div>
           </motion.div>
         </TabsContent>
@@ -902,66 +873,6 @@ export default function ProfilePage() {
                             : ""}
                         </li>
                       </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <Card className="border-amber-200 shadow-sm">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-100">
-                  <CardTitle className="text-amber-800 flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-amber-600" />
-                    Security Settings
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-medium text-amber-800 mb-2">
-                        Change Password
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        Update your password regularly to keep your account
-                        secure.
-                      </p>
-                      <Button
-                        variant="outline"
-                        className="mt-2 border-amber-200 text-amber-700 hover:bg-amber-50"
-                      >
-                        Change Password
-                      </Button>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-amber-800 mb-2">
-                        Two-Factor Authentication
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        Add an extra layer of security to your account.
-                      </p>
-                      <Button
-                        variant="outline"
-                        className="mt-2 border-amber-200 text-amber-700 hover:bg-amber-50"
-                      >
-                        Enable 2FA
-                      </Button>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-amber-800 mb-2">
-                        Login History
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        View your recent login activity.
-                      </p>
-                      <Button
-                        variant="outline"
-                        className="mt-2 border-amber-200 text-amber-700 hover:bg-amber-50"
-                      >
-                        View History
-                      </Button>
                     </div>
                   </div>
                 </CardContent>

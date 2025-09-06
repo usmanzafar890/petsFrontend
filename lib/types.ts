@@ -1,18 +1,37 @@
 export type View = "dashboard" | "add-pet" | "edit-pet" | "schedules" | "appointments" | "health" | "emergency";
 
+export interface PetFamily {
+  _id: string;
+  name: string;
+  user: string;
+  description?: string;
+  familyPhoto?: string;
+  pets: Pet[] | string[];
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type PetFamilyData = Omit<PetFamily, '_id' | 'user' | 'createdAt' | 'updatedAt'>;
+
+export type PetRole = 'parent' | 'child' | 'sibling' | 'other';
+
 export interface Pet {
   _id: string;
   user: string;
   name: string;
   species: string;
   breed: string;
-  age: number;
+  age: string | number; // Updated to support both string and number formats
   gender: string;
   weight: number;
   microchipId?: string;
   dateOfBirth: string;
   allergies: string[];
   medicalHistory: string[];
+  family?: string;
+  role?: PetRole;
+  relationshipNotes?: string;
   countryOfOrigin?: string;
   passport?: string;
   placeOfBirth?: string;
@@ -154,8 +173,14 @@ export interface HealthRecord {
   name: string;
   date: string;
   nextDueDate?: string;
-  lotNumber?: string;
   notes?: string;
+  administeredBy?: string;
+  location?: string;
+  dosage?: string;
+  frequency?: string;
+  duration?: string;
+  sideEffects?: string;
+  effectiveness?: "excellent" | "good" | "moderate" | "poor" | "unknown";
 }
 
 export type HealthRecordData = Omit<HealthRecord, '_id'>;

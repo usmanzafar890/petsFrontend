@@ -212,7 +212,7 @@ export function HealthDashboard({ onBack }: { onBack: () => void }) {
             onValueChange={(value: "records" | "logs") =>
               value && setView(value)
             }
-            className="justify-start bg-white p-1 rounded-lg border border-amber-200 shadow-sm"
+            className="justify-start bg-white p-1 w-full rounded-lg border border-amber-200 shadow-sm"
           >
             <ToggleGroupItem
               value="records"
@@ -235,7 +235,7 @@ export function HealthDashboard({ onBack }: { onBack: () => void }) {
               defaultValue="all"
               value={selectedPet}
               onValueChange={(value) => value && setSelectedPet(value)}
-              className="justify-start bg-white p-1 rounded-lg border border-amber-200 shadow-sm overflow-x-auto flex-nowrap"
+              className="justify-start bg-white p-1 w-full rounded-lg border border-amber-200 shadow-sm overflow-x-auto flex-nowrap"
             >
               <ToggleGroupItem
                 value="all"

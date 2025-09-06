@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,69 +47,197 @@ export function Sidebar({ isOnline }: SidebarProps) {
     router.push("/");
   };
 
-  const navigationItems = [
+  // Define section IDs as a type for type safety
+  type SectionId = 'dashboard' | 'pets' | 'health' | 'communication' | 'settings';
+  
+  // Initialize with all sections collapsed
+  const [expandedSections, setExpandedSections] = useState<Record<SectionId, boolean>>({
+    dashboard: false,
+    pets: false,
+    health: false,
+    communication: false,
+    settings: false,
+  });
+
+  // Toggle function that ensures only one section is expanded at a time
+  const toggleSection = (section: SectionId) => {
+    setExpandedSections(prev => {
+      // Create a new state with all sections collapsed
+      const newState: Record<SectionId, boolean> = {
+        dashboard: false,
+        pets: false,
+        health: false,
+        communication: false,
+        settings: false,
+      };
+      
+      // If the clicked section was already expanded, leave all collapsed
+      // Otherwise, expand only the clicked section
+      if (!prev[section]) {
+        newState[section] = true;
+      }
+      
+      return newState;
+    });
+  };
+
+  // Auto-expand the section containing the active route
+  useEffect(() => {
+    // Find which section contains the current path
+    const findActiveSection = (): SectionId | null => {
+      for (const section of navigationSections) {
+        if (section.items.some(item => pathname === item.href)) {
+          return section.id;
+        }
+      }
+      return null;
+    };
+    
+    const activeSection = findActiveSection();
+    if (activeSection) {
+      setExpandedSections(prev => {
+        // Only update if the active section isn't already expanded
+        if (!prev[activeSection]) {
+          const newState: Record<SectionId, boolean> = {
+            dashboard: false,
+            pets: false,
+            health: false,
+            communication: false,
+            settings: false,
+          };
+          newState[activeSection] = true;
+          return newState;
+        }
+        return prev;
+      });
+    }
+  }, [pathname]);
+
+  // Define the navigation section type
+  type NavigationSection = {
+    id: SectionId;
+    title: string;
+    icon: React.ElementType;
+    color: string;
+    items: Array<{
+      href: string;
+      label: string;
+      icon: React.ElementType;
+      petIcon: React.ElementType;
+      color: string;
+    }>;
+  };
+
+  const navigationSections: NavigationSection[] = [
     {
-      href: "/dashboard",
-      label: t("navigation.home"),
+      id: "dashboard",
+      title: "Dashboard",
       icon: Home,
-      petIcon: Dog,
       color: "amber",
+      items: [
+        {
+          href: "/dashboard",
+          label: t("navigation.home"),
+          icon: Home,
+          petIcon: Dog,
+          color: "amber",
+        },
+        {
+          href: "/dashboard/analytics",
+          label: t("navigation.analytics"),
+          icon: BarChart,
+          petIcon: PawPrint,
+          color: "purple",
+        },
+      ],
     },
     {
-      href: "/dashboard/add-pet",
-      label: "Add Pet",
-      icon: Plus,
-      petIcon: Cat,
-      color: "orange",
-    },
-    {
-      href: "/dashboard/schedules",
-      label: t("navigation.schedule"),
-      icon: Clock,
-      petIcon: Rabbit,
-      color: "yellow",
-    },
-    {
-      href: "/dashboard/appointments",
-      label: "Vet Visits",
-      icon: Stethoscope,
-      petIcon: Bird,
-      color: "blue",
-    },
-    {
-      href: "/dashboard/health",
-      label: t("navigation.health"),
-      icon: Shield,
-      petIcon: Fish,
-      color: "green",
-    },
-    {
-      href: "/dashboard/messages",
-      label: t("navigation.messages"),
-      icon: MessageSquare,
-      petIcon: Cat,
-      color: "teal",
-    },
-    {
-      href: "/dashboard/emergency",
-      label: t("navigation.emergency"),
-      icon: AlertTriangle,
-      petIcon: PawPrint,
-      color: "red",
-    },
-    {
-      href: "/dashboard/analytics",
-      label: t("navigation.analytics"),
-      icon: BarChart,
-      petIcon: PawPrint,
-      color: "purple",
-    },
-    {
-      href: "/dashboard/profile",
-      label: t("navigation.profile") || "Profile",
-      icon: UserCog,
-      petIcon: Dog,
+      id: "pets",
+      title: "Pets",
+      icon: PawPrint,
       color: "pink",
+      items: [
+        {
+          href: "/dashboard/pets",
+          label: "Pets Dashboard",
+          icon: PawPrint,
+          petIcon: Dog,
+          color: "pink",
+        },
+        {
+          href: "/dashboard/add-pet",
+          label: "Add Pet",
+          icon: Plus,
+          petIcon: Cat,
+          color: "orange",
+        },
+      ],
+    },
+    {
+      id: "health",
+      title: "Health & Care",
+      icon: Shield,
+      color: "green",
+      items: [
+        {
+          href: "/dashboard/schedules",
+          label: t("navigation.schedule"),
+          icon: Clock,
+          petIcon: Rabbit,
+          color: "yellow",
+        },
+        {
+          href: "/dashboard/appointments",
+          label: "Vet Visits",
+          icon: Stethoscope,
+          petIcon: Bird,
+          color: "blue",
+        },
+        {
+          href: "/dashboard/health",
+          label: t("navigation.health"),
+          icon: Shield,
+          petIcon: Fish,
+          color: "green",
+        },
+        {
+          href: "/dashboard/emergency",
+          label: t("navigation.emergency"),
+          icon: AlertTriangle,
+          petIcon: PawPrint,
+          color: "red",
+        },
+      ],
+    },
+    {
+      id: "communication",
+      title: "Communication",
+      icon: MessageSquare,
+      color: "teal",
+      items: [
+        {
+          href: "/dashboard/messages",
+          label: t("navigation.messages"),
+          icon: MessageSquare,
+          petIcon: Cat,
+          color: "teal",
+        },
+      ],
+    },
+    {
+      id: "settings",
+      title: "Settings",
+      icon: UserCog,
+      color: "gray",
+      items: [
+        {
+          href: "/dashboard/profile",
+          label: t("navigation.profile") || "Profile",
+          icon: UserCog,
+          petIcon: Dog,
+          color: "pink",
+        },
+      ],
     },
   ];
 
@@ -176,74 +304,128 @@ export function Sidebar({ isOnline }: SidebarProps) {
             </div>
           </motion.div>
 
-          <div className="px-3 pt-5 pb-2">
-            <h2 className="text-xs font-semibold text-amber-800/70 uppercase tracking-wider px-3 mb-2">
-              Pet Dashboard
-            </h2>
-          </div>
-
-          <nav className="flex-1 px-3 py-2 space-y-1.5 overflow-y-auto scrollbar-thin scrollbar-thumb-amber-200">
-            {navigationItems.map((item, index) => {
-              const Icon = item.icon;
-              const PetIcon = item.petIcon;
-              const isActive = pathname === item.href;
-              const colorClass = `${item.color}-${isActive ? "600" : "500"}`;
-
+          <nav className="flex-1 px-3 py-2 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-amber-200">
+            {navigationSections.map((section, sectionIndex) => {
+              const SectionIcon = section.icon;
+              // Use type assertion to fix TypeScript error
+              const isExpanded = expandedSections[section.id as SectionId];
+              const sectionColor = section.color;
+              
               return (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  whileHover={{ x: 5 }}
-                >
-                  <Button
-                    variant={isActive ? "default" : "ghost"}
-                    className={`w-full justify-start gap-3 h-11 rounded-xl relative overflow-hidden ${
-                      isActive
-                        ? `bg-${item.color}-100 hover:bg-${item.color}-200 text-${item.color}-700`
-                        : `hover:bg-${item.color}-50 text-gray-600 hover:text-${item.color}-600`
-                    }`}
-                    onClick={() => {
-                      router.push(item.href);
-                      if (window.innerWidth < 768) {
-                        setIsMobileMenuOpen(false);
-                      }
-                    }}
+                <div key={section.id} className="space-y-1">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: sectionIndex * 0.1 }}
                   >
-                    {isActive && (
-                      <div
-                        className={`absolute left-0 top-0 bottom-0 w-1 bg-${colorClass} rounded-r-full`}
-                      ></div>
-                    )}
-                    <div className="relative">
-                      {isActive && (
-                        <div
-                          className={`absolute -inset-1 rounded-full bg-${colorClass} opacity-20 blur-sm`}
-                        ></div>
-                      )}
-                      <div
-                        className={`relative p-1.5 rounded-full ${
-                          isActive ? `bg-${colorClass}/10` : ""
-                        }`}
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      className={`w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg transition-colors border shadow-sm ${
+                        `bg-${sectionColor}-50/50 text-${sectionColor}-800 hover:bg-${sectionColor}-100/50 border-${sectionColor}-100/50`
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className={`p-1.5 rounded-md shadow-sm bg-gradient-to-br from-${sectionColor}-100 to-${sectionColor}-200`}>
+                          <SectionIcon className={`w-4 h-4 text-${sectionColor}-600`} />
+                        </div>
+                        <span className="text-xs font-semibold uppercase tracking-wider">
+                          {section.title}
+                        </span>
+                        {section.id === 'pets' && (
+                          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-[10px] font-medium text-amber-600">
+                            {section.items.length}
+                          </div>
+                        )}
+                      </div>
+                      <div 
+                        className={`transform transition-all duration-300 ${isExpanded ? `rotate-90 text-${sectionColor}-600` : 'text-gray-400'}`}
                       >
-                        <Icon
-                          className={`w-4 h-4 ${
-                            isActive ? `text-${colorClass}` : "text-gray-500"
-                          }`}
-                        />
+                        <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4.5 9L7.5 6L4.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </div>
-                    </div>
+                    </button>
+                  </motion.div>
+                  
+                  {isExpanded && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className={`mt-2 ml-3 space-y-1.5 pl-1 border-l border-${sectionColor}-200/50`}
+                    >
+                      {section.items.map((item, index) => {
+                        const Icon = item.icon;
+                        const PetIcon = item.petIcon;
+                        const isActive = pathname === item.href;
+                        const itemColor = item.color;
+                        const colorClass = `${itemColor}-${isActive ? "600" : "500"}`;
 
-                    <span className="font-medium">{item.label}</span>
+                        return (
+                          <motion.div
+                            key={item.href}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.2, delay: index * 0.05 }}
+                            whileHover={{ x: 3 }}
+                          >
+                            <Button
+                              variant={isActive ? "default" : "ghost"}
+                              className={`w-full justify-start gap-3 h-9 rounded-md relative overflow-hidden ${
+                                isActive
+                                  ? `bg-gradient-to-r from-${itemColor}-50 to-${itemColor}-100 text-${itemColor}-700 shadow-sm`
+                                  : `hover:bg-${itemColor}-50/50 text-gray-600 hover:text-${itemColor}-600`
+                              }`}
+                              onClick={() => {
+                                router.push(item.href);
+                                if (window.innerWidth < 768) {
+                                  setIsMobileMenuOpen(false);
+                                }
+                              }}
+                            >
+                              {isActive && (
+                                <div
+                                  className={`absolute left-0 top-0 bottom-0 w-1 bg-${colorClass} rounded-r-full`}
+                                ></div>
+                              )}
+                              <div className="relative">
+                                {isActive && (
+                                  <div
+                                    className={`absolute -inset-1 rounded-full bg-${colorClass} opacity-20 blur-sm`}
+                                  ></div>
+                                )}
+                                <div
+                                  className={`relative p-1.5 rounded-full ${
+                                    isActive ? `bg-${colorClass}/10` : ""
+                                  }`}
+                                >
+                                  <Icon
+                                    className={`w-3.5 h-3.5 ${
+                                      isActive ? `text-${colorClass}` : "text-gray-500"
+                                    }`}
+                                  />
+                                </div>
+                              </div>
 
-                    {isActive && (
-                      <div className="absolute right-2 opacity-10">
-                        <PetIcon className="w-6 h-6" />
-                      </div>
-                    )}
-                  </Button>
-                </motion.div>
+                              <span className="font-medium text-sm">{item.label}</span>
+
+                              {isActive && (
+                                <motion.div 
+                                  initial={{ scale: 0.8, opacity: 0 }}
+                                  animate={{ scale: 1, opacity: 0.1 }}
+                                  className="absolute right-2"
+                                >
+                                  <PetIcon className="w-5 h-5" />
+                                </motion.div>
+                              )}
+                            </Button>
+                          </motion.div>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </div>
               );
             })}
           </nav>

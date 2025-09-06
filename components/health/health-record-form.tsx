@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { PawPrint, Calendar, Stethoscope, FileText } from "lucide-react"
+import { PawPrint, Calendar, Stethoscope, FileText, MapPin, User, Pill, Clock, Activity, AlertCircle, BarChart2, Paperclip } from "lucide-react"
 import { motion } from "framer-motion"
 import type { Pet, HealthRecord, HealthRecordData } from "@/lib/types"
 
@@ -26,8 +26,14 @@ export function HealthRecordForm({ pets, record, onSave, onCancel }: HealthRecor
     name: record?.name || "",
     date: record?.date ? new Date(record.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
     nextDueDate: record?.nextDueDate ? new Date(record.nextDueDate).toISOString().split('T')[0] : "",
-    lotNumber: record?.lotNumber || "",
     notes: record?.notes || "",
+    administeredBy: record?.administeredBy || "",
+    location: record?.location || "",
+    dosage: record?.dosage || "",
+    frequency: record?.frequency || "",
+    duration: record?.duration || "",
+    sideEffects: record?.sideEffects || "",
+    effectiveness: record?.effectiveness as "excellent" | "good" | "moderate" | "poor" | "unknown" | undefined,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -143,34 +149,139 @@ export function HealthRecordForm({ pets, record, onSave, onCancel }: HealthRecor
             </div>
           </div>
 
-          {formData.type === 'vaccine' && (
+          <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="lotNumber" className="flex items-center gap-2 text-amber-800">
-                <FileText className="w-4 h-4 text-amber-600" />
-                Lot Number (Optional)
+              <Label htmlFor="administeredBy" className="flex items-center gap-2 text-amber-800">
+                <User className="w-4 h-4 text-amber-600" />
+                Administered By
               </Label>
               <Input 
-                id="lotNumber" 
-                name="lotNumber" 
-                value={formData.lotNumber} 
+                id="administeredBy" 
+                name="administeredBy" 
+                value={formData.administeredBy} 
                 onChange={handleInputChange} 
-                placeholder="Enter vaccine lot number" 
+                placeholder="e.g., Dr. Smith" 
                 className="border-amber-200 focus:ring-amber-500 focus:border-amber-500"
               />
             </div>
-          )}
+            
+            <div className="space-y-2">
+              <Label htmlFor="location" className="flex items-center gap-2 text-amber-800">
+                <MapPin className="w-4 h-4 text-amber-600" />
+                Location
+              </Label>
+              <Input 
+                id="location" 
+                name="location" 
+                value={formData.location} 
+                onChange={handleInputChange} 
+                placeholder="e.g., City Vet Clinic" 
+                className="border-amber-200 focus:ring-amber-500 focus:border-amber-500"
+              />
+            </div>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="space-y-2">
+              <Label htmlFor="dosage" className="flex items-center gap-2 text-amber-800">
+                <Pill className="w-4 h-4 text-amber-600" />
+                Dosage
+              </Label>
+              <Input 
+                id="dosage" 
+                name="dosage" 
+                value={formData.dosage} 
+                onChange={handleInputChange} 
+                placeholder="e.g., 10mg" 
+                className="border-amber-200 focus:ring-amber-500 focus:border-amber-500"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="frequency" className="flex items-center gap-2 text-amber-800">
+                <Clock className="w-4 h-4 text-amber-600" />
+                Frequency
+              </Label>
+              <Input 
+                id="frequency" 
+                name="frequency" 
+                value={formData.frequency} 
+                onChange={handleInputChange} 
+                placeholder="e.g., Twice daily" 
+                className="border-amber-200 focus:ring-amber-500 focus:border-amber-500"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="duration" className="flex items-center gap-2 text-amber-800">
+                <Activity className="w-4 h-4 text-amber-600" />
+                Duration
+              </Label>
+              <Input 
+                id="duration" 
+                name="duration" 
+                value={formData.duration} 
+                onChange={handleInputChange} 
+                placeholder="e.g., 7 days" 
+                className="border-amber-200 focus:ring-amber-500 focus:border-amber-500"
+              />
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="sideEffects" className="flex items-center gap-2 text-amber-800">
+                <AlertCircle className="w-4 h-4 text-amber-600" />
+                Side Effects
+              </Label>
+              <Textarea 
+                id="sideEffects" 
+                name="sideEffects" 
+                value={formData.sideEffects} 
+                onChange={handleInputChange} 
+                placeholder="Any observed side effects" 
+                className="border-amber-200 focus:ring-amber-500 focus:border-amber-500 min-h-[80px]"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="effectiveness" className="flex items-center gap-2 text-amber-800">
+                <BarChart2 className="w-4 h-4 text-amber-600" />
+                Effectiveness
+              </Label>
+              <Select 
+                name="effectiveness" 
+                value={formData.effectiveness || undefined} 
+                onValueChange={(value: "excellent" | "good" | "moderate" | "poor" | "unknown") => 
+                  handleSelectChange('effectiveness', value)
+                }
+              >
+                <SelectTrigger id="effectiveness" className="w-full border-amber-200 focus:ring-amber-500 focus:border-amber-500 bg-white">
+                  <SelectValue placeholder="Select effectiveness" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="excellent">Excellent</SelectItem>
+                  <SelectItem value="good">Good</SelectItem>
+                  <SelectItem value="moderate">Moderate</SelectItem>
+                  <SelectItem value="poor">Poor</SelectItem>
+                  <SelectItem value="unknown">Unknown</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
 
           <div className="space-y-2">
             <Label htmlFor="notes" className="flex items-center gap-2 text-amber-800">
               <FileText className="w-4 h-4 text-amber-600" />
-              Notes
+              Additional Notes
             </Label>
             <Textarea 
               id="notes" 
               name="notes" 
               value={formData.notes} 
               onChange={handleInputChange} 
-              placeholder="Optional notes about the record" 
+              placeholder="Any additional notes about the record" 
               className="border-amber-200 focus:ring-amber-500 focus:border-amber-500"
             />
           </div>
